@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cdi-api">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/cdi-api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
