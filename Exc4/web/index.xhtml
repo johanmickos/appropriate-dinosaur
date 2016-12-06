@@ -5,46 +5,50 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>The AD Currency Converter</title>
-    </h:head>
-   <h:body>
-      <h1>Welcome to the currency converter</h1>
-      <hr/>
-      <h:form>
-         <h3>Select the currency and the amount you want to convert from, and the currency to convert to.</h3>
-         <p>
-            <h:outputLabel for="amountToConvert" value="Amount: "/>
-            <h:inputText id="amountToConvert" value="#{converterManager.amountToConvert}"/>
-         </p>
+<h:head>
+    <title>The AD Currency Converter</title>
+</h:head>
+<h:body>
+    <h:outputStylesheet library="css" name="style.css"  />
+    <h1>Currency Converter</h1>
+    <div id="main-div">
+        <h:form>
+            <p>
+                <h:outputLabel id="amountText" for="amountToConvert" value="Amount: "/>
+                <h:inputText id="amountToConvert" value="#{converterManager.amountToConvert}"/>
+            </p>
 
-         <h:selectOneMenu value="#{converterManager.currencyFrom}" >
-            <f:selectItem itemValue="SEK" itemLabel="SEK" />
-            <f:selectItem itemValue="ISK" itemLabel="ISK" />
-            <f:selectItem itemValue="USD" itemLabel="USD" />
-            <f:selectItem itemValue="EUR" itemLabel="EUR" />
-         </h:selectOneMenu>
+            <h:selectOneMenu value="#{converterManager.currencyFrom}" >
+                <f:selectItem itemValue="SEK" itemLabel="SEK" />
+                <f:selectItem itemValue="ISK" itemLabel="ISK" />
+                <f:selectItem itemValue="USD" itemLabel="USD" />
+                <f:selectItem itemValue="EUR" itemLabel="EUR" />
+            </h:selectOneMenu>
 
-         <h:selectOneMenu value="#{converterManager.currencyTo}" >
-            <f:selectItem itemValue="SEK" itemLabel="SEK" />
-            <f:selectItem itemValue="ISK" itemLabel="ISK" />
-            <f:selectItem itemValue="USD" itemLabel="USD" />
-            <f:selectItem itemValue="EUR" itemLabel="EUR" />
-         </h:selectOneMenu>
+            <p>to:</p>
 
-         <p>
-            <h:commandButton value="Convert" action="#{converterManager.convert}"/>
-         </p>
+            <h:selectOneMenu value="#{converterManager.currencyTo}" >
+                <f:selectItem itemValue="SEK" itemLabel="SEK" />
+                <f:selectItem itemValue="ISK" itemLabel="ISK" />
+                <f:selectItem itemValue="USD" itemLabel="USD" />
+                <f:selectItem itemValue="EUR" itemLabel="EUR" />
+            </h:selectOneMenu>
 
-         <hr/>
-         <h:outputLabel for="convertedAmount" rendered="#{converterManager.conversion != null}"  value="Conversion: "/>
-          <h:outputText id="amountToConverted" value="#{converterManager.conversion.amountToConvert}"/>
-          <h:outputText id="currencyFrom" value=" #{converterManager.conversion.currencyFrom}"/>
-          <h:outputText rendered="#{converterManager.conversion != null}" value=" = "/>
-          <h:outputText id="convertedAmount" value="#{converterManager.conversion.convertedAmount}"/>
-          <h:outputText id="currencyTo" value=" #{converterManager.conversion.currencyTo}"/>
-         <hr/>
-      </h:form>
-       <h:graphicImage value="/img/logo.png"/>
-   </h:body>
+            <p>
+                <h:commandButton value="Convert" action="#{converterManager.convert}"/>
+            </p>
+
+
+        </h:form>
+    </div>
+    <div id="output-div">
+        <h:outputLabel for="convertedAmount" rendered="#{converterManager.conversion != null}"  value=""/>
+        <h:outputText id="amountToConverted" value="#{converterManager.conversion.amountToConvert}"/>
+        <h:outputText id="currencyFrom" value=" #{converterManager.conversion.currencyFrom}"/>
+        <h:outputText rendered="#{converterManager.conversion != null}" value=" = "/>
+        <h:outputText id="convertedAmount" value="#{converterManager.conversion.convertedAmount}"/>
+        <h:outputText id="currencyTo" value=" #{converterManager.conversion.currencyTo}"/>
+    </div>
+    <h:graphicImage value="resources/img/logo.png"/>
+</h:body>
 </html>
