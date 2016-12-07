@@ -9,6 +9,11 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="application" name="Java EE 6-Java EE 6" />
+          <element id="library" level="project" name="cdi-api" />
+          <element id="library" level="project" name="javax.inject" />
+          <element id="library" level="project" name="JPA 2.0-2.0" />
+          <element id="library" level="project" name="h2-1.4.193" />
+          <element id="library" level="project" name="eclipselink-2.3.0" />
         </element>
       </element>
     </root>
