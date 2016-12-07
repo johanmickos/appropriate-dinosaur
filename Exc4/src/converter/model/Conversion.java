@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 @Entity
 @NamedQueries({
+        @NamedQuery(name="Conversion.getAllCurrencies",
+                query="SELECT distinct c.currencyFrom FROM Conversion c"),
         @NamedQuery(name="Conversion.findAll",
                 query="SELECT c FROM Conversion c"),
         @NamedQuery(name="Conversion.findByFromTo",

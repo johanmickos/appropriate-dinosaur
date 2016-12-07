@@ -42,4 +42,12 @@ public class ConversionController {
         return (ConversionDTO) found.get(0);
     }
 
+    public List getCurrencies() {
+        List found = em.createNamedQuery("Conversion.getAllCurrencies").getResultList();
+        if (found == null || found.size() == 0) {
+            throw new EntityNotFoundException("No currencies found!");
+        }
+        return found;
+    }
+
 }
