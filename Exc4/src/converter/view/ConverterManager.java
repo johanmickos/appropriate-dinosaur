@@ -27,6 +27,8 @@ public class ConverterManager implements Serializable {
     private Conversation conversation;
     private List currencies;
 
+    private String conversionOutput;
+
     private void startConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
@@ -77,16 +79,23 @@ public class ConverterManager implements Serializable {
         this.currencyTo = currencyTo;
     }
 
+    public String getConversionOutput()
+    {
+        return conversionOutput;
+    }
+
+    public void setConversionOutput(String conversionOutput)
+    {
+        this.conversionOutput = conversionOutput;
+    }
+
     public String convert() {
         try {
             startConversation();
             conversionFailure = null;
 
             this.conversion = conversionController.findConversion(currencyFrom, currencyTo);
-            System.out.println("Amount to convert: " + amountToConvert +
-                "currency from: " + currencyFrom +
-                "currency to: " + currencyTo);
-
+            generateConversionOutputString();
 
         } catch (Exception e) {
             handleException(e);
@@ -100,6 +109,17 @@ public class ConverterManager implements Serializable {
         conversionFailure = e;
     }
 
+    private void generateConversionOutputString()
+    {
+        this.conversionOutput = "Conv: " +
+                this.amountToConvert +
+                " " +
+                this.conversion.getCurrencyFrom() +
+                " = " +
+                this.conversion.convert(amountToConvert) +
+                this.conversion.getCurrencyTo();
+    }
+
     /**
      * This return value is needed because of a JSF 2.2 bug. Note 3 on page 7-10
      * of the JSF 2.2 specification states that action handling methods may be
@@ -111,6 +131,14 @@ public class ConverterManager implements Serializable {
      */
     private String jsf22Bugfix() {
         return "";
+    }
+
+    public boolean getSuccess() {
+        return conversionFailure == null;
+    }
+
+    public Exception getException() {
+        return conversionFailure;
     }
 
     public List getCurrencies() {
