@@ -1,19 +1,25 @@
 package converter.view;
 
-import converter.model.Conversion;
-import java.io.Serializable;
-import javax.inject.Inject;
-import javax.inject.Named;
+import converter.controller.ConversionController;
+import converter.model.ConversionDTO;
+
+import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.io.Serializable;
 
 @Named("converterManager")
 @ConversationScoped
 public class ConverterManager implements Serializable {
+    @EJB
+    private ConversionController conversionController;
+
     private double amountToConvert;
     private String currencyFrom;
     private String currencyTo;
-    private Conversion conversion;
+    private ConversionDTO conversion;
     private Exception conversionFailure;
     @Inject
     private Conversation conversation;
@@ -30,7 +36,7 @@ public class ConverterManager implements Serializable {
         }
     }
 
-    public Conversion getConversion()
+    public ConversionDTO getConversion()
     {
         return conversion;
     }
@@ -68,11 +74,11 @@ public class ConverterManager implements Serializable {
             startConversation();
             conversionFailure = null;
 
+            this.conversion = conversionController.findConversion(currencyFrom, currencyTo);
             System.out.println("Amount to convert: " + amountToConvert +
                 "currency from: " + currencyFrom +
                 "currency to: " + currencyTo);
 
-            this.conversion = new Conversion(amountToConvert, amountToConvert*10, currencyFrom, currencyTo);
 
         } catch (Exception e) {
             handleException(e);

@@ -42,11 +42,11 @@
         </h:form>
     </div>
     <div id="output-div">
-        <h:outputLabel for="convertedAmount" rendered="#{converterManager.conversion != null}"  value=""/>
-        <h:outputText id="amountToConverted" value="#{converterManager.conversion.amountToConvert}"/>
+        <h:outputLabel for="convertedAmount" rendered="#{converterManager.conversion != null}"  value="Conversion: "/>
+        <h:outputText id="amountToConverted" value="#{converterManager.amountToConvert}"/>
         <h:outputText id="currencyFrom" value=" #{converterManager.conversion.currencyFrom}"/>
         <h:outputText rendered="#{converterManager.conversion != null}" value=" = "/>
-        <h:outputText id="convertedAmount" value="#{converterManager.conversion.convertedAmount}"/>
+        <h:outputText id="convertedAmount" value="#{converterManager.conversion.convert(converterManager.amountToConvert)}"/>
         <h:outputText id="currencyTo" value=" #{converterManager.conversion.currencyTo}"/>
     </div>
     <h:graphicImage value="resources/img/logo.png"/>

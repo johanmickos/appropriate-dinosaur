@@ -1,57 +1,63 @@
 package converter.model;
 
-public class Conversion
-{
-    private double amountToConvert;
-    private double convertedAmount;
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+@NamedQueries({
+        @NamedQuery(name="Conversion.findAll",
+                query="SELECT c FROM Conversion c"),
+        @NamedQuery(name="Conversion.findByFromTo",
+                query="SELECT c FROM Conversion c WHERE c.currencyFrom = :from AND c.currencyTo = :to"),
+})
+public class Conversion implements ConversionDTO, Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int conversionId;
+    private double conversionRate;
     private String currencyFrom;
     private String currencyTo;
 
-    public Conversion(double amountToConvert, double convertedAmount, String currencyFrom, String currencyTo)
-    {
-        this.amountToConvert = amountToConvert;
-        this.convertedAmount = convertedAmount;
-        this.currencyFrom = currencyFrom;
-        this.currencyTo = currencyTo;
+    public Conversion(String from, String to, double rate) {
+        conversionRate = rate;
+        currencyFrom = from;
+        currencyTo = to;
     }
 
-    public double getAmountToConvert()
-    {
-        return amountToConvert;
+    public Conversion() {
     }
 
-    public void setAmountToConvert(double amountToConvert)
-    {
-        this.amountToConvert = amountToConvert;
+    public int getConversionId() {
+        return conversionId;
     }
 
-    public double getConvertedAmount()
-    {
-        return convertedAmount;
+    @Override
+    public double getConversionRate() {
+        return conversionRate;
     }
 
-    public void setConvertedAmount(double convertedAmount)
-    {
-        this.convertedAmount = convertedAmount;
+    @Override
+    public double convert(double amount) {
+        return amount * conversionRate;
     }
 
-    public String getCurrencyFrom()
-    {
+    public void setConversionRate(double conversionRate) {
+        this.conversionRate = conversionRate;
+    }
+
+    public String getCurrencyFrom() {
         return currencyFrom;
     }
 
-    public void setCurrencyFrom(String currencyFrom)
-    {
+    public void setCurrencyFrom(String currencyFrom) {
         this.currencyFrom = currencyFrom;
     }
 
-    public String getCurrencyTo()
-    {
+    public String getCurrencyTo() {
         return currencyTo;
     }
 
-    public void setCurrencyTo(String currencyTo)
-    {
+    public void setCurrencyTo(String currencyTo) {
         this.currencyTo = currencyTo;
     }
 }
