@@ -3,12 +3,14 @@ package converter.view;
 import converter.controller.ConversionController;
 import converter.model.ConversionDTO;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 
 @Named("converterManager")
 @ConversationScoped
@@ -23,6 +25,7 @@ public class ConverterManager implements Serializable {
     private Exception conversionFailure;
     @Inject
     private Conversation conversation;
+    private List currencies;
 
     private void startConversation() {
         if (conversation.isTransient()) {
@@ -34,6 +37,11 @@ public class ConverterManager implements Serializable {
         if (!conversation.isTransient()) {
             conversation.end();
         }
+    }
+
+    @PostConstruct
+    public void init() {
+        currencies = conversionController.getCurrencies();
     }
 
     public ConversionDTO getConversion()
@@ -105,4 +113,11 @@ public class ConverterManager implements Serializable {
         return "";
     }
 
+    public List getCurrencies() {
+        return currencies;
+    }
+
+    public void setCurrencies(List currencies) {
+        this.currencies = currencies;
+    }
 }
