@@ -12,7 +12,8 @@
 
 </h:head>
 <h:body>
-    <h1>Currency Converter</h1>
+    <h:graphicImage value="resources/img/logo.png" id="main-logo"/>
+    <h1 class="on-top">Currency Converter</h1>
     <div id="main-div">
         <h:form>
             <p>
@@ -51,6 +52,5 @@
         <h:outputText id="convertedAmount" value="#{converterManager.conversion.convert(converterManager.amountToConvert)}"/>
         <h:outputText id="currencyTo" value=" #{converterManager.conversion.currencyTo}"/>
     </div>
-    <h:graphicImage value="resources/img/logo.png"/>
 </h:body>
 </html>
