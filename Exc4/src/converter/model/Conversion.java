@@ -62,4 +62,32 @@ public class Conversion implements ConversionDTO, Serializable {
     public void setCurrencyTo(String currencyTo) {
         this.currencyTo = currencyTo;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Conversion that = (Conversion) o;
+
+        if (conversionId != that.conversionId) return false;
+        if (Double.compare(that.conversionRate, conversionRate) != 0) return false;
+        if (!currencyFrom.equals(that.currencyFrom)) return false;
+        return currencyTo.equals(that.currencyTo);
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result;
+        long temp;
+        result = conversionId;
+        temp = Double.doubleToLongBits(conversionRate);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + currencyFrom.hashCode();
+        result = 31 * result + currencyTo.hashCode();
+        return result;
+    }
 }

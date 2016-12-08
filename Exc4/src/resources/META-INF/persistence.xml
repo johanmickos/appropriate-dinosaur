@@ -7,7 +7,7 @@
         <jta-data-source>java:app/jdbc/converter</jta-data-source>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
             <property name="javax.persistence.sql-load-script-source" value="META-INF/bootstrap.sql"/>
         </properties>
     </persistence-unit>
